@@ -112,20 +112,15 @@ namespace Kiemtra.Controllers
 
                     if (laThang)
                     {
-                        if (laDon)
-                        {
-                            if (vong.Contains("loai")) diem = 200;
-                            else if (vong.Contains("tu")) diem = 300;
-                            else if (vong.Contains("ban")) diem = 400;
-                            else if (vong.Contains("chung")) diem = 500;
-                        }
-                        else if (laDoi)
-                        {
-                            if (vong.Contains("loai")) diem = 150;
-                            else if (vong.Contains("tu")) diem = 250;
-                            else if (vong.Contains("ban")) diem = 350;
-                            else if (vong.Contains("chung")) diem = 450;
-                        }
+                        // Nhận diện vòng đấu
+                        int diemVongDon = 0, diemVongDoi = 0;
+                        if (vong.Contains("chung")) { diemVongDon = 500; diemVongDoi = 450; }
+                        else if (vong.Contains("ban") || vong.Contains("vong 3")) { diemVongDon = 400; diemVongDoi = 350; }
+                        else if (vong.Contains("tu") || vong.Contains("vong 2")) { diemVongDon = 300; diemVongDoi = 250; }
+                        else if (vong.Contains("loai") || vong.Contains("vong 1")) { diemVongDon = 200; diemVongDoi = 150; }
+
+                        if (laDon) diem = diemVongDon;
+                        else if (laDoi) diem = diemVongDoi;
                     }
 
                     tongDiem += diem;

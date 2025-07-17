@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kiemtra.Migrations
 {
     [DbContext(typeof(BadmintonDbContext))]
-    [Migration("20250717050749_Initial")]
+    [Migration("20250717064205_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

@@ -48,6 +48,13 @@ namespace Kiemtra.Models
                         new VanDongVien { MaVDV = "VDV3", HoTen = "Đỗ Văn F", NamSinh = 2002, GioiTinh = "Nam", MaDoi = "DT3", Diem = 110 }
                     );
                 }
+                // Thêm VDV4 vào seed VanDongVien nếu chưa có
+                if (!context.VanDongViens.Any(v => v.MaVDV == "VDV4"))
+                {
+                    context.VanDongViens.Add(
+                        new VanDongVien { MaVDV = "VDV4", HoTen = "Lý Thị G", NamSinh = 2003, GioiTinh = "Nữ", MaDoi = "DT1", Diem = 90 }
+                    );
+                }
                 // TrongTai
                 if (!context.TrongTais.Any())
                 {
@@ -70,9 +77,12 @@ namespace Kiemtra.Models
                 if (!context.TranDaus.Any())
                 {
                     context.TranDaus.AddRange(
-                        new TranDau { MaTran = "T1", VongDau = "Vòng 1", MaLich = "L1", MaTT = "TT1", MaVDV1 = "VDV1", MaVDV2 = "VDV2", MaVDV3 = "VDV3", MaVDV4 = "VDV1", KetQua = "2-0" },
-                        new TranDau { MaTran = "T2", VongDau = "Vòng 2", MaLich = "L2", MaTT = "TT2", MaVDV1 = "VDV2", MaVDV2 = "VDV3", MaVDV3 = "VDV1", MaVDV4 = "VDV2", KetQua = "2-1" },
-                        new TranDau { MaTran = "T3", VongDau = "Vòng 3", MaLich = "L3", MaTT = "TT3", MaVDV1 = "VDV3", MaVDV2 = "VDV1", MaVDV3 = "VDV2", MaVDV4 = "VDV3", KetQua = "0-2" }
+                        // T1: Đơn, VDV1 vs VDV2, đội 1 thắng
+                        new TranDau { MaTran = "T1", VongDau = "Vòng 1", MaLich = "L1", MaTT = "TT1", MaVDV1 = "VDV1", MaVDV2 = null, MaVDV3 = "VDV2", MaVDV4 = null, KetQua = "2-0" },
+                        // T2: Đôi, VDV2+VDV3 vs VDV1+VDV4 (giả sử có VDV4), đội 1 thắng
+                        new TranDau { MaTran = "T2", VongDau = "Vòng 2", MaLich = "L2", MaTT = "TT2", MaVDV1 = "VDV2", MaVDV2 = "VDV3", MaVDV3 = "VDV1", MaVDV4 = "VDV4", KetQua = "2-1" },
+                        // T3: Đơn, VDV3 vs VDV1, đội 2 thắng
+                        new TranDau { MaTran = "T3", VongDau = "Vòng 3", MaLich = "L3", MaTT = "TT3", MaVDV1 = "VDV3", MaVDV2 = null, MaVDV3 = "VDV1", MaVDV4 = null, KetQua = "0-2" }
                     );
                 }
                 context.SaveChanges();

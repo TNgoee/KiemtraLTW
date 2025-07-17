@@ -13,13 +13,13 @@ namespace Kiemtra.Models
         [ForeignKey("TrongTai")]
         public string MaTT { get; set; }
         [ForeignKey("VanDongVien1")]
-        public string MaVDV1 { get; set; }
+        public string? MaVDV1 { get; set; }
         [ForeignKey("VanDongVien2")]
-        public string MaVDV2 { get; set; }
+        public string? MaVDV2 { get; set; }
         [ForeignKey("VanDongVien3")]
-        public string MaVDV3 { get; set; }
+        public string? MaVDV3 { get; set; }
         [ForeignKey("VanDongVien4")]
-        public string MaVDV4 { get; set; }
+        public string? MaVDV4 { get; set; }
         public string KetQua { get; set; }
 
         public LichThiDau LichThiDau { get; set; }
