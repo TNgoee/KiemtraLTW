@@ -1,0 +1,128 @@
+@model Kiemtra.ViewComponents.VanDongVienStatsViewModel
+
+<style>
+    :root {
+        --main-color: #3f51b5;
+        /* Xanh chàm (indigo) */
+        --accent-color: #ffffff;
+        --border-color: #ddd;
+    }
+
+    .card {
+        border-radius: 12px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .card-header {
+        background-color: var(--main-color) !important;
+        color: var(--accent-color) !important;
+        padding: 1rem 1.25rem;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .alert-info,
+    .alert-success {
+        border-radius: 8px;
+        font-size: 1rem;
+        padding: 0.75rem 1rem;
+        background-color: #e8eaf6;
+        border: none;
+        color: #1a237e;
+    }
+
+    .badge {
+        font-size: 0.95rem;
+        padding: 0.5em 0.75em;
+        border-radius: 999px;
+    }
+
+    .badge.bg-primary {
+        background-color: var(--main-color) !important;
+        color: var(--accent-color);
+    }
+
+    .badge.bg-success {
+        background-color: #4caf50 !important;
+        color: var(--accent-color);
+    }
+
+    .table thead {
+        background-color: var(--main-color);
+        color: var(--accent-color);
+    }
+
+    .table th,
+    .table td {
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .table td {
+        background-color: #fafafa;
+    }
+
+    h6 {
+        font-weight: 600;
+        color: #303f9f;
+    }
+
+    @@media(max - width: 768px) {
+            .alert {
+                font-size: 0.9rem;
+            }
+
+            .card-header h5 {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="fas fa-chart-bar"></i> Thống kê Vận động viên</h5>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="alert alert-info">
+                        <strong>Tổng số vận động viên:</strong>
+                        <span class="badge bg-primary">@Model.TongSoLuong</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="alert alert-success">
+                        <strong>Tuổi trung bình toàn bộ:</strong>
+                        <span class="badge bg-success">@Model.TuoiTrungBinhToanBo tuổi</span>
+                    </div>
+                </div>
+            </div>
+
+            <h6 class="mb-3">Thống kê theo loại giải:</h6>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Loại giải</th>
+                            <th>Số lượng VĐV</th>
+                            <th>Tuổi trung bình</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var stat in Model.Stats)
+                        {
+                            <tr>
+                                <td>@stat.LoaiGiai</td>
+                                <td>@stat.SoLuongVDV</td>
+                                <td>@stat.TuoiTrungBinh tuổi</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,133 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+/* Navbar */
+.navbar {
+    font-size: 1.1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.navbar .nav-link.active, .navbar .nav-link:focus, .navbar .nav-link:hover {
+    color: #0d6efd !important;
+    background: #e9ecef;
+    border-radius: 0.25rem;
+}
+
+/* Card */
+.card {
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    border: none;
+}
+.card-header {
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+.card-body {
+    background: #f8f9fa;
+}
+
+/* Table */
+.table {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: #fff;
+}
+.table th, .table td {
+    vertical-align: middle;
+}
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: #f2f6fc;
+}
+.table-hover tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+/* Form */
+input.form-control, select.form-control, textarea.form-control {
+    border-radius: 0.5rem;
+    border: 1px solid #ced4da;
+    box-shadow: none;
+    transition: border-color 0.2s;
+}
+input.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.1rem rgba(13,110,253,.15);
+}
+.btn {
+    border-radius: 0.5rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: box-shadow 0.2s;
+}
+.btn-primary, .btn-success, .btn-info, .btn-warning, .btn-danger, .btn-secondary {
+    box-shadow: 0 2px 8px rgba(13,110,253,0.07);
+}
+.btn:focus, .btn:hover {
+    box-shadow: 0 4px 16px rgba(13,110,253,0.13);
+}
+
+/* Badge */
+.badge {
+    font-size: 1em;
+    padding: 0.5em 0.8em;
+    border-radius: 0.5em;
+}
+
+/* Responsive Card */
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 1.5rem;
+    }
+    .navbar .container {
+        flex-direction: column;
+    }
+}
+
+/* Footer */
+.footer {
+    background: #f8f9fa;
+    color: #6c757d;
+    font-size: 1rem;
+    padding: 1rem 0;
+    border-top: 1px solid #e9ecef;
+    margin-top: 2rem;
+}
+
+/* Misc */
+body {
+    background: #f4f6fa;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    font-weight: 600;
+}

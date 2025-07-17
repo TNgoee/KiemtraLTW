@@ -1,0 +1,142 @@
+@model IEnumerable<Kiemtra.Models.DoiTuyen>
+@{
+    ViewData["Title"] = "Danh sách Đội tuyển";
+    Layout = "_Layout";
+}
+
+<style>
+    .doituyen-title {
+        color: #1a237e;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .doituyen-card {
+        border-radius: 1.2rem;
+        box-shadow: 0 4px 24px rgba(26, 35, 126, 0.10);
+        border: 1px solid #e3e6f0;
+        background: #fff;
+    }
+
+    .doituyen-card .card-body {
+        background: #f4f7fb;
+        border-radius: 1.2rem;
+    }
+
+    .doituyen-table thead {
+        background: linear-gradient(90deg, #1a237e 0%, #3949ab 100%);
+        color: #fff;
+    }
+
+    .doituyen-table th,
+    .doituyen-table td {
+        vertical-align: middle;
+        font-size: 1.05em;
+    }
+
+    .doituyen-table tbody tr:hover {
+        background: #e3e6f0;
+    }
+
+    .doituyen-badge {
+        font-size: 1em;
+        padding: 0.5em 0.8em;
+        border-radius: 0.5em;
+    }
+
+    .doituyen-search .form-control {
+        border-radius: 2rem;
+        border: 1.5px solid #1a237e;
+        box-shadow: none;
+    }
+
+    .doituyen-search .form-control:focus {
+        border-color: #3949ab;
+        box-shadow: 0 0 0 0.1rem rgba(26, 35, 126, .15);
+    }
+
+    .doituyen-search .btn {
+        border-radius: 2rem;
+        background: linear-gradient(90deg, #1a237e 0%, #3949ab 100%);
+        color: #fff;
+        border: none;
+        font-weight: 500;
+        letter-spacing: 0.03em;
+    }
+
+    .doituyen-search .btn:hover {
+        background: linear-gradient(90deg, #3949ab 0%, #1a237e 100%);
+        color: #fff;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                <h2 class="doituyen-title"><i class="fas fa-flag"></i> Danh sách Đội tuyển</h2>
+                <div class="input-group doituyen-search" style="max-width: 320px;">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Tìm kiếm đội tuyển...">
+                    <button class="btn" type="button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card doituyen-card shadow-sm">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table doituyen-table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th><i class="fas fa-id-card"></i> Mã đội</th>
+                                    <th><i class="fas fa-flag"></i> Tên đội</th>
+                                    <th><i class="fas fa-user-tie"></i> HLV trưởng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var dt in Model)
+                                {
+                                    <tr>
+                                        <td><span class="badge bg-secondary doituyen-badge">@dt.MaDoi</span></td>
+                                        <td><strong>@dt.TenDoi</strong></td>
+                                        <td><span class="badge bg-info doituyen-badge">@dt.MaHLV</span></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('searchInput').addEventListener('keyup', function () {
+        var input = this.value.toLowerCase();
+        var table = document.querySelector('table');
+        var rows = table.getElementsByTagName('tr');
+        for (var i = 1; i < rows.length; i++) {
+            var row = rows[i];
+            var cells = row.getElementsByTagName('td');
+            var found = false;
+            for (var j = 0; j < cells.length; j++) {
+                var cell = cells[j];
+                if (cell.textContent.toLowerCase().indexOf(input) > -1) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+    });
+</script>

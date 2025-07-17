@@ -1,0 +1,159 @@
+@model IEnumerable<Kiemtra.Models.VanDongVien>
+@{
+    ViewData["Title"] = "Danh sách Vận động viên";
+    Layout = "_Layout";
+}
+
+<style>
+    .vdv-title {
+        color: #1a237e;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .vdv-card {
+        border-radius: 1.2rem;
+        box-shadow: 0 4px 24px rgba(26, 35, 126, 0.10);
+        border: 1px solid #e3e6f0;
+        background: #fff;
+    }
+
+    .vdv-card .card-body {
+        background: #f4f7fb;
+        border-radius: 1.2rem;
+    }
+
+    .vdv-table thead {
+        background: linear-gradient(90deg, #1a237e 0%, #3949ab 100%);
+        color: #fff;
+    }
+
+    .vdv-table th,
+    .vdv-table td {
+        vertical-align: middle;
+        font-size: 1.05em;
+    }
+
+    .vdv-table tbody tr:hover {
+        background: #e3e6f0;
+    }
+
+    .vdv-badge {
+        font-size: 1em;
+        padding: 0.5em 0.8em;
+        border-radius: 0.5em;
+    }
+
+    .vdv-search .form-control {
+        border-radius: 2rem;
+        border: 1.5px solid #1a237e;
+        box-shadow: none;
+    }
+
+    .vdv-search .form-control:focus {
+        border-color: #3949ab;
+        box-shadow: 0 0 0 0.1rem rgba(26, 35, 126, .15);
+    }
+
+    .vdv-search .btn {
+        border-radius: 2rem;
+        background: linear-gradient(90deg, #1a237e 0%, #3949ab 100%);
+        color: #fff;
+        border: none;
+        font-weight: 500;
+        letter-spacing: 0.03em;
+    }
+
+    .vdv-search .btn:hover {
+        background: linear-gradient(90deg, #3949ab 0%, #1a237e 100%);
+        color: #fff;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                <h2 class="vdv-title"><i class="fas fa-users"></i> Danh sách Vận động viên</h2>
+                <div class="input-group vdv-search" style="max-width: 320px;">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Tìm kiếm vận động viên...">
+                    <button class="btn" type="button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card vdv-card shadow-sm">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table vdv-table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th><i class="fas fa-id-card"></i> Mã VĐV</th>
+                                    <th><i class="fas fa-user"></i> Họ tên</th>
+                                    <th><i class="fas fa-birthday-cake"></i> Năm sinh</th>
+                                    <th><i class="fas fa-venus-mars"></i> Giới tính</th>
+                                    <th><i class="fas fa-flag"></i> Đội tuyển</th>
+                                    <th><i class="fas fa-star"></i> Điểm</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var vdv in Model)
+                                {
+                                    <tr>
+                                        <td><span class="badge bg-primary vdv-badge">@vdv.MaVDV</span></td>
+                                        <td><strong>@vdv.HoTen</strong></td>
+                                        <td>@vdv.NamSinh</td>
+                                        <td>
+                                            @if (vdv.GioiTinh == "Nam")
+                                            {
+                                                <span class="badge bg-info vdv-badge"><i class="fas fa-mars"></i>
+                                                    @vdv.GioiTinh</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-warning vdv-badge"><i class="fas fa-venus"></i>
+                                                    @vdv.GioiTinh</span>
+                                            }
+                                        </td>
+                                        <td><span class="badge bg-secondary vdv-badge">@vdv.MaDoi</span></td>
+                                        <td><span class="badge bg-success vdv-badge">@vdv.Diem điểm</span></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('searchInput').addEventListener('keyup', function () {
+        var input = this.value.toLowerCase();
+        var table = document.querySelector('table');
+        var rows = table.getElementsByTagName('tr');
+        for (var i = 1; i < rows.length; i++) {
+            var row = rows[i];
+            var cells = row.getElementsByTagName('td');
+            var found = false;
+            for (var j = 0; j < cells.length; j++) {
+                var cell = cells[j];
+                if (cell.textContent.toLowerCase().indexOf(input) > -1) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+    });
+</script>

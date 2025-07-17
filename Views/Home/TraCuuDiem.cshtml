@@ -1,0 +1,136 @@
+@model List<Kiemtra.Controllers.HomeController.TraCuuVDVResult>
+@{
+    ViewData["Title"] = "Tra cứu điểm vận động viên";
+    Layout = "_Layout";
+}
+<!-- CSS hiện đại: Xanh chàm & trắng -->
+<style>
+    :root {
+        --main-color: #3f51b5;
+        --success-color: #4caf50;
+        --info-color: #03a9f4;
+        --warning-color: #ffc107;
+        --light-bg: #f8f9fa;
+    }
+
+    .card {
+        border-radius: 10px;
+        border: 1px solid #ddd;
+    }
+
+    .card-header {
+        font-weight: 600;
+    }
+
+    .form-control:focus {
+        border-color: var(--main-color);
+        box-shadow: 0 0 0 0.2rem rgba(63, 81, 181, 0.25);
+    }
+
+    .btn-primary {
+        background-color: var(--main-color);
+        border-color: var(--main-color);
+    }
+
+    .btn-primary:hover {
+        background-color: #303f9f;
+        border-color: #303f9f;
+    }
+
+    .badge.bg-light {
+        background-color: #e8eaf6 !important;
+    }
+
+    .badge.bg-info {
+        background-color: var(--info-color) !important;
+    }
+
+    .badge.bg-warning {
+        background-color: var(--warning-color) !important;
+        color: #000;
+    }
+
+    .card.border-success {
+        border-left: 6px solid var(--success-color);
+    }
+
+    .list-group-item {
+        background-color: var(--light-bg);
+        border: none;
+        padding: 10px 15px;
+    }
+
+    .alert-warning {
+        background-color: #fff3cd;
+        border-color: #ffeeba;
+        color: #856404;
+    }
+
+    h4,
+    h5 {
+        margin-bottom: 0;
+    }
+</style>
+
+<!-- Giao diện tra cứu -->
+<div class="container py-4">
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm border-primary">
+                <div class="card-header bg-primary text-white">
+                    <h4><i class="fas fa-search"></i> Tra cứu điểm vận động viên</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" class="d-flex gap-2">
+                        <input type="text" name="tenVDV" class="form-control" placeholder="Nhập tên vận động viên..."
+                            value="@ViewBag.TenVDV" required />
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-search"></i> Xác nhận
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                @foreach (var item in Model)
+                {
+                    <div class="card mb-4 shadow border-success">
+                        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                            <span>
+                                <strong>@item.VDV.HoTen</strong>
+                                <span class="badge bg-light text-success">Mã: @item.VDV.MaVDV</span>
+                                <span class="badge bg-info text-dark">Đội: @item.VDV.MaDoi</span>
+                            </span>
+                            <span class="fs-5">
+                                Tổng điểm: <span class="badge bg-warning">@item.TongDiem</span>
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                @foreach (var tran in item.TranThamGia)
+                                {
+                                    <li class="list-group-item">@tran</li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    else if (ViewBag.TenVDV != null)
+    {
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="alert alert-warning text-center mt-4">
+                    Không tìm thấy vận động viên nào tên "<strong>@ViewBag.TenVDV</strong>".
+                </div>
+            </div>
+        </div>
+    }
+</div>

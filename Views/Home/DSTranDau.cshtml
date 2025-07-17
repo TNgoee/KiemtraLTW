@@ -1,0 +1,154 @@
+@model IEnumerable<Kiemtra.Models.TranDau>
+@{
+    ViewData["Title"] = "Danh sách Trận đấu";
+    Layout = "_Layout";
+}
+
+<style>
+    .trandau-title {
+        color: #1a237e;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .trandau-card {
+        border-radius: 1.2rem;
+        box-shadow: 0 4px 24px rgba(26, 35, 126, 0.10);
+        border: 1px solid #e3e6f0;
+        background: #fff;
+    }
+
+    .trandau-card .card-body {
+        background: #f4f7fb;
+        border-radius: 1.2rem;
+    }
+
+    .trandau-table thead {
+        background: linear-gradient(90deg, #1a237e 0%, #3949ab 100%);
+        color: #fff;
+    }
+
+    .trandau-table th,
+    .trandau-table td {
+        vertical-align: middle;
+        font-size: 1.05em;
+    }
+
+    .trandau-table tbody tr:hover {
+        background: #e3e6f0;
+    }
+
+    .trandau-badge {
+        font-size: 1em;
+        padding: 0.5em 0.8em;
+        border-radius: 0.5em;
+    }
+
+    .trandau-search .form-control {
+        border-radius: 2rem;
+        border: 1.5px solid #1a237e;
+        box-shadow: none;
+    }
+
+    .trandau-search .form-control:focus {
+        border-color: #3949ab;
+        box-shadow: 0 0 0 0.1rem rgba(26, 35, 126, .15);
+    }
+
+    .trandau-search .btn {
+        border-radius: 2rem;
+        background: linear-gradient(90deg, #1a237e 0%, #3949ab 100%);
+        color: #fff;
+        border: none;
+        font-weight: 500;
+        letter-spacing: 0.03em;
+    }
+
+    .trandau-search .btn:hover {
+        background: linear-gradient(90deg, #3949ab 0%, #1a237e 100%);
+        color: #fff;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                <h2 class="trandau-title"><i class="fas fa-gamepad"></i> Danh sách Trận đấu</h2>
+                <div class="input-group trandau-search" style="max-width: 320px;">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Tìm kiếm trận đấu...">
+                    <button class="btn" type="button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card trandau-card shadow-sm">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table trandau-table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th><i class="fas fa-id-card"></i> Mã trận</th>
+                                    <th><i class="fas fa-trophy"></i> Vòng đấu</th>
+                                    <th><i class="fas fa-calendar"></i> Lịch thi đấu</th>
+                                    <th><i class="fas fa-whistle"></i> Trọng tài</th>
+                                    <th><i class="fas fa-user"></i> VĐV 1</th>
+                                    <th><i class="fas fa-user"></i> VĐV 2</th>
+                                    <th><i class="fas fa-user"></i> VĐV 3</th>
+                                    <th><i class="fas fa-user"></i> VĐV 4</th>
+                                    <th><i class="fas fa-flag-checkered"></i> Kết quả</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var td in Model)
+                                {
+                                    <tr>
+                                        <td><span class="badge bg-danger trandau-badge">@td.MaTran</span></td>
+                                        <td><span class="badge bg-warning trandau-badge">@td.VongDau</span></td>
+                                        <td><span class="badge bg-info trandau-badge">@td.MaLich</span></td>
+                                        <td><span class="badge bg-success trandau-badge">@td.MaTT</span></td>
+                                        <td><span class="badge bg-primary trandau-badge">@td.MaVDV1</span></td>
+                                        <td><span class="badge bg-primary trandau-badge">@td.MaVDV2</span></td>
+                                        <td><span class="badge bg-primary trandau-badge">@td.MaVDV3</span></td>
+                                        <td><span class="badge bg-primary trandau-badge">@td.MaVDV4</span></td>
+                                        <td><span class="badge bg-dark trandau-badge">@td.KetQua</span></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('searchInput').addEventListener('keyup', function () {
+        var input = this.value.toLowerCase();
+        var table = document.querySelector('table');
+        var rows = table.getElementsByTagName('tr');
+        for (var i = 1; i < rows.length; i++) {
+            var row = rows[i];
+            var cells = row.getElementsByTagName('td');
+            var found = false;
+            for (var j = 0; j < cells.length; j++) {
+                var cell = cells[j];
+                if (cell.textContent.toLowerCase().indexOf(input) > -1) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+    });
+</script>
